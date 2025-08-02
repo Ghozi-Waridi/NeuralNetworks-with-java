@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.StringJoiner;
 import java.util.concurrent.ThreadLocalRandom;
+import java.util.Arrays;
 
 /**
  * Kelas Tensor yang menggunakan komposisi dengan List internal.
@@ -103,12 +104,14 @@ public class Tensor<T extends Number> {
     }
     return tensor;
   }
-  
+
   /**
    * Membuat Tensor baru dengan dimensi (shape),
    * di mana semua elemennya diinisialisasi dengan nilai acak,
    * antara 0 dan 1 dengan presisi 4 angka di belakang koma.
-   * @param shape Dimensi dari tensor yang akan dibuat (misal: 5, 5 untuk matriks 5x5).
+   * 
+   * @param shape Dimensi dari tensor yang akan dibuat (misal: 5, 5 untuk matriks
+   *              5x5).
    * @return Sebuah instance Tensor baru yang berisi nilai acak.
    * @param <T> Tipe data numerik.
    */
@@ -120,7 +123,8 @@ public class Tensor<T extends Number> {
 
     for (int i = 0; i < size; i++) {
       T value;
-      // 2. Gunakan ThreadLocalRandom untuk menghasilkan anga acak antara 0 - 1 dengan presisi 4 angka di belakang koma
+      // 2. Gunakan ThreadLocalRandom untuk menghasilkan anga acak antara 0 - 1 dengan
+      // presisi 4 angka di belakang koma
       Double randomValue = ThreadLocalRandom.current().nextInt(0, 10000) / 10000.0;
 
       value = (T) randomValue;
@@ -130,6 +134,12 @@ public class Tensor<T extends Number> {
     return tensor;
   }
 
+  /**
+   * Menghitung ukuran total dari tensor berdasarkan dimensi (shape).
+   * 
+   * @param shape Dimensi dari tensor (misal: 2, 3 untuk matriks 2x3).
+   * @return Ukuran total dari tensor.
+   */
   private static int getSize(int... shape) {
     int size = 1;
     for (int dim : shape) {
@@ -140,8 +150,37 @@ public class Tensor<T extends Number> {
     }
     return size;
   }
+  
+  /**
+   * Membuat tenaor dari array double. (convert double array to tensor).
+   *
+   * @param array Array data yang akan di ubah menjadi tensor.
+   * @param shape Dimensi yang ingin di buat untuk tensor.
+   * @return Sebuah instance Tensor baru yang berisi data dari array.
+   *
+   * @Note: untuk ukuran shape dan array harus sesuai sebab array akan di jadikan ukuran sesuai dengan shape,
+   */
+  @SuppressWarnings("unchecked")
+  public static <T extends Number> Tensor<T> fromArray(double[] array, int... shape) {
+    // 1, Periksa apakah shape valid
+    if (array == null || array.length == 0) {
+      throw new IllegalArgumentException("Array tidak boleh null atau kosong.");
+    }
+    // 2. inisialisasi tensor dengan shape yang diberikan
+    Tensor<T> tensor = new Tensor<>(shape);
+    int size = getSize(shape);
+    for (int i = 0; i < size; i++) {
+      T value = (T) Double.valueOf(array[i]);
+      tensor.internalData.add(value);
+    }
+    return tensor;
+  }
 
-  // Getter untuk shape
+  /**
+   * Mengambil data internal dari tensor.
+   * 
+   * @return List yang berisi data internal dari tensor.
+   */
   public int[] getShape() {
     return shape;
   }
