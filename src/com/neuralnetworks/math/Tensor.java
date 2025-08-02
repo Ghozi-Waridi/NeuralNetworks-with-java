@@ -13,7 +13,7 @@ import java.util.Arrays;
  */
 public class Tensor<T extends Number> {
 
-  private final int[] shape;
+  private int[] shape;
   private final List<T> internalData;
 
   /**
@@ -150,7 +150,7 @@ public class Tensor<T extends Number> {
     }
     return size;
   }
-  
+
   /**
    * Membuat tenaor dari array double. (convert double array to tensor).
    *
@@ -158,7 +158,8 @@ public class Tensor<T extends Number> {
    * @param shape Dimensi yang ingin di buat untuk tensor.
    * @return Sebuah instance Tensor baru yang berisi data dari array.
    *
-   * @Note: untuk ukuran shape dan array harus sesuai sebab array akan di jadikan ukuran sesuai dengan shape,
+   * @Note: untuk ukuran shape dan array harus sesuai sebab array akan di jadikan
+   *        ukuran sesuai dengan shape,
    */
   @SuppressWarnings("unchecked")
   public static <T extends Number> Tensor<T> fromArray(double[] array, int... shape) {
@@ -181,8 +182,61 @@ public class Tensor<T extends Number> {
    * 
    * @return List yang berisi data internal dari tensor.
    */
-  public int[] getShape() {
-    return shape;
+  public void getShape() {
+    System.out.print("Shape Tensor: ");
+    if (shape.length == 0) {
+      System.out.println("[]");
+      return;
+    }
+    System.out.print("[");
+    for (int dim : shape) {
+      System.out.print(dim + " ");
+    }
+    System.out.println("]");
+  }
+
+  /**
+   * Mengambil elemen dari tensor berdasarkan indeks multi-dimensi.
+   * 
+   * @param index Indeks multi-dimensi untuk mengambil elemen (misal: {0, 1} untuk
+   * @return Elemen pada indeks yang diberikan sebagai List.
+   */
+  public List<T> get(int... index) {
+    if (index.length != shape.length) {
+      throw new IllegalArgumentException("Jumlah indeks harus sesuai dengan jumlah dimensi tensor.");
+    }
+    // Hitung indeks linear berdasarkan indeks multi-dimensi
+    int linearIndex = index[0] * shape[1] + index[1];
+    return internalData.subList(linearIndex, linearIndex + 1);
+  }
+
+  /**
+   * Mengubah bentuk (reshape) tensor ke dimensi baru.
+   * 
+   * @param newShape Dimensi baru untuk tensor (misal: 3, 2 untuk matriks 3x2).
+   *
+   */
+  public void reshape(int... newShape) {
+    if (newShape.length < 2) {
+      throw new IllegalArgumentException("Tensor harus memiliki setidaknya 2 dimensi untuk reshape.");
+    }
+
+    int newSize = getSize(newShape);
+    if (newSize != internalData.size()) {
+      throw new IllegalArgumentException("Ukuran baru tidak sesuai dengan ukuran data internal.");
+    }
+    this.shape = newShape;
+
+  }
+  public Tensor<T> flatten() {
+    if (shape.length == 1) {
+      return null; // Sudah dalam bentuk datar
+    }
+    Tensor<T> flattenedTensor = new Tensor<>(1, getSize(shape));
+    for(int i = 0; i < internalData.size(); i++) {
+      flattenedTensor.internalData.add(internalData.get(i));
+    }
+    return flattenedTensor;
   }
 
   // Override toString() untuk menampilkan tensor dengan format yang rapi (contoh

@@ -23,8 +23,15 @@ public class App {
     // System.out.println(weight);
 
     double[] data = { 1.0, 2.0, 3.0, 4.0, 5.0, 6.0 };
-    Tensor<Double> tensor = Tensor.fromArray(data, 2, 3);
+    Tensor<Double> tensor = Tensor.fromArray(data, 6, 1);
     System.out.println("Tensor dari array: " + tensor);
+    System.out.println(tensor.get(0, 0));
+    tensor.getShape();
+    tensor.reshape(2, 3);
+    tensor.getShape();
+    System.out.println("Tensor setelah reshape: " + tensor);
+    Tensor<Double> flatten = tensor.flatten(); 
+    System.out.println("Tensor setelah flatten: " + flatten);
 
   }
 }
