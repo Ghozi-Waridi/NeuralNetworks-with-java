@@ -20,7 +20,7 @@ public class Tensor<T extends Number> {
    * Konstruktor privat. Gunakan metode pabrik seperti .zeros() atau .ones()
    * untuk membuat instance baru.
    */
-  private Tensor(int... shape) {
+  protected Tensor(int... shape) {
     this.shape = shape;
     // Membuat List dengan ukuran yang sudah ditentukan untuk efisiensi
     this.internalData = new ArrayList<>();
@@ -195,19 +195,42 @@ public class Tensor<T extends Number> {
     System.out.println("]");
   }
 
+  public int[] getShapeArray() {
+    return this.shape;
+  }
+
   /**
    * Mengambil elemen dari tensor berdasarkan indeks multi-dimensi.
    * 
    * @param index Indeks multi-dimensi untuk mengambil elemen (misal: {0, 1} untuk
    * @return Elemen pada indeks yang diberikan sebagai List.
    */
-  public List<T> get(int... index) {
+  public T get(int... index) {
     if (index.length != shape.length) {
       throw new IllegalArgumentException("Jumlah indeks harus sesuai dengan jumlah dimensi tensor.");
     }
     // Hitung indeks linear berdasarkan indeks multi-dimensi
     int linearIndex = index[0] * shape[1] + index[1];
-    return internalData.subList(linearIndex, linearIndex + 1);
+    return internalData.get(linearIndex);
+
+  }
+
+  /**
+   * Mengubah elemen pada tensor dengan data baru.
+   *
+   * @param data List yang berisi data baru untuk tensor.
+   * 
+   */
+  public void set(List<T> data) {
+    int dims = 1;
+    for (int dim : shape) {
+      dims *= dim;
+    }
+    if (data.size() != dims) {
+      throw new IllegalArgumentException("Jumlah indeks harus sesuai dengan jumlah dimensi tensor.");
+    }
+    this.internalData.clear();
+    this.internalData.addAll(data);
   }
 
   /**
@@ -228,12 +251,39 @@ public class Tensor<T extends Number> {
     this.shape = newShape;
 
   }
+
+  /**
+   * Mengambil data internal dari tensor.
+   *
+   * @return list yang berisi data internal dari tensor.
+   */
+  public List<T> getInternalData() {
+    return this.internalData;
+  }
+
+  /**
+   * Membuat object tensor baru dengan dimensi (shape).
+   *
+   * @param shape Dimensi dari tensor yang akan dibuat (misal: 2, 3 untuk matriks
+   *              2x3).
+   * @return Sebuah instance Tensor baru yang berisi data internal.
+   * @param <T> Tipe data numerik.
+   */
+  public static <T extends Number> Tensor<T> create(int... shape) {
+    return new Tensor<>(shape);
+  }
+
+  /**
+   * Mengubah tensor menjadi bentuk datar (flatten).
+   * 
+   * @return Tensor baru yang berisi data dalam bentuk datar.
+   */
   public Tensor<T> flatten() {
     if (shape.length == 1) {
       return null; // Sudah dalam bentuk datar
     }
     Tensor<T> flattenedTensor = new Tensor<>(1, getSize(shape));
-    for(int i = 0; i < internalData.size(); i++) {
+    for (int i = 0; i < internalData.size(); i++) {
       flattenedTensor.internalData.add(internalData.get(i));
     }
     return flattenedTensor;
