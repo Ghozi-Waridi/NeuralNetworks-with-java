@@ -22,5 +22,12 @@ public class App {
 
     Tensor<Double> hasilPerkalian = TensorMath.multiply(tensor, tensor2);
     System.out.println("Hasil Perkalian Tensor: " + hasilPerkalian);
+
+    tensor2.reshape(3, 2);
+    System.out.println("Tensor 1" + tensor);
+    System.out.println("Tensor 2 " + tensor2);
+    Tensor<Double> hasilDot = TensorMath.dotProduct(tensor, tensor2);
+    System.out.println("Hasil Dot Product Tensor: " + hasilDot);
+
   }
 }

@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.StringJoiner;
 import java.util.concurrent.ThreadLocalRandom;
-import java.util.Arrays;
+// import java.util.Arrays;
 
 /**
  * Kelas Tensor yang menggunakan komposisi dengan List internal.

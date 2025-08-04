@@ -15,8 +15,6 @@ public class TensorMath<T extends Number> {
    * @param b Tensor kedua yang akan dijumlahkan.
    * @return Tensor baru yang merupakan hasil penjumlahan dari a dan b.
    * @param T Tipe data numerik
-   *
-   *
    */
   @SuppressWarnings("unchecked")
   public static <T extends Number> Tensor<T> add(Tensor<T> a, Tensor<T> b) {
@@ -125,4 +123,54 @@ public class TensorMath<T extends Number> {
     result.set(hasil);
     return result;
   }
+
+  /**
+   * Melakukan operasi dot product antara dua matriks atau tensor,
+   * Perlu diketahui bahwa operasi ini hanya bisa menggunakan tipe data Double.
+   *
+   * @param a data matriks pertama.
+   * @param b data matriks kedua.
+   * @return instance baru hasil dari perkalian antara matriks a dan matriks b.
+   * @param T Tipe data numerik.
+   */
+  @SuppressWarnings("unchecked")
+  public static <T extends Number> Tensor<T> dotProduct(Tensor<T> a, Tensor<T> b) {
+
+    // inisialisasi ukruan rows dan cols untuk operasi.
+    int rowsA = a.getShapeArray()[0];
+    int colsA = a.getShapeArray()[1];
+    int colsB = b.getShapeArray()[1];
+
+    // validasi dimensi untuk dot Product (antara Rows A dan Cols B)
+    if (rowsA != colsB) {
+      throw new IllegalArgumentException(
+          "Jumlah baris dari tensor A harus sama dengan jumlah kolom dari tensor B untuk dot product.");
+    }
+
+    // Inisialisasi tensor baru untuk menampung hasil perkalian.
+    Tensor<T> result = Tensor.create(rowsA, colsB);
+
+    // Mengambil data matirks dari data a dan data b.
+    List<T> dataA = a.getInternalData();
+    List<T> dataB = b.getInternalData();
+
+    // inisialisasi aray baru unttk hasil perkalian.
+    List<T> hasil = new ArrayList<>(rowsA * colsB);
+    // Melakukan operasi perkalian
+    for (int i = 0; i < rowsA; i++) {
+
+      for (int j = 0; j < colsB; j++) {
+        double sum = 0.0;
+        for (int k = 0; k < colsA; k++) {
+          double valueA = dataA.get(i * colsA + k).doubleValue();
+          double valueB = dataB.get(k * colsB + j).doubleValue();
+          sum += valueA * valueB;
+        }
+        hasil.add((T) Double.valueOf(sum));
+      }
+    }
+    result.set(hasil);
+    return result;
+  }
+
 }
