@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.StringJoiner;
 import java.util.concurrent.ThreadLocalRandom;
 // import java.util.Arrays;
+import java.util.function.DoubleUnaryOperator;
 
 /**
  * Kelas Tensor yang menggunakan komposisi dengan List internal.
@@ -132,6 +133,25 @@ public class Tensor<T extends Number> {
       tensor.internalData.add(value);
     }
     return tensor;
+  }
+  
+
+  /**
+   * Mengaplikasikan fungsi pemetaan (mapper) pada setiap elemen tensor.
+   * 
+   * @param mapper Fungsi yang akan diterapkan pada setiap elemen tensor.
+   * @return Tensor baru yang berisi hasil pemetaan dari fungsi mapper.
+   */
+  public Tensor<Double> map(DoubleUnaryOperator mapper){
+    // mengambil ukuran dari tensor.
+    int size = getSize(this.shape);
+    // Membuat array untuk menyimpan hasil pemetaan
+    double[] array = new double[size];   
+    // Melakukan iterasi pada data internal dan menerapkan fungsi mapper
+    for (int i = 0; i < size; i++) {
+      array[i] = mapper.applyAsDouble(internalData.get(i).doubleValue());
+    }
+    return Tensor.fromArray(array, this.shape);
   }
 
   /**
