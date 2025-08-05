@@ -19,7 +19,7 @@ Tujuan utama proyek ini untuk edukasi: menyediakan tempat untuk melakukan kolabo
 ## 🗂️ Struktur Proyek
 
 Untuk memudahkan navigasi dan kontribusi, proyek ini diorganisis ke dalam beberapa folder.
-
+```bash
 neural-network-from-scratch/ ## Nama Proyek
 ├── bin/ ## Tempat file file hasil kompilasi (.class)
 ├── src/ ## 
@@ -59,7 +59,7 @@ neural-network-from-scratch/ ## Nama Proyek
 ├── .gitignore
 ├── LICENSE
 └── README.md
-
+```
 
 
 
