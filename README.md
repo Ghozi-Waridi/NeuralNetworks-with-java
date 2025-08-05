@@ -4,7 +4,7 @@
 ![Status: In-Development](https://img.shields.io/badge/status-in_development-orange.svg)
 ![Contributions: Welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg)
 
-Selamat datang di **Java Neural Networks from Scratch**! Proyek ini saya buat untuk belajar *Neural Networks* yang dibangun sepenuhnya dari awal tanpa menggunakan library apapun hanya menggunakan package dari java itu sendiri seperti math arraylist dll. 
+Selamat datang di **Java Neural Networks from Scratch**! Proyek ini kami buat untuk belajar *Neural Networks* yang dibangun sepenuhnya dari awal tanpa menggunakan library apapun hanya menggunakan package dari java itu sendiri seperti math arraylist dll. 
 
 Tujuan utama proyek ini untuk edukasi: menyediakan tempat untuk melakukan kolaborasi github, sambil belajar algoritma neural networks, project ini terbuka untuk umum jadi siapapun bisa mengikutinya. asalkan mengikuti aturan dan cara kerja yang sudah ditetapkan.
 
@@ -19,39 +19,39 @@ Tujuan utama proyek ini untuk edukasi: menyediakan tempat untuk melakukan kolabo
 ## 🗂️ Struktur Proyek
 
 Untuk memudahkan navigasi dan kontribusi, proyek ini diorganisis ke dalam beberapa folder.
-```bash
+```text
 neural-network-from-scratch/ ## Nama Proyek
 ├── bin/ ## Tempat file file hasil kompilasi (.class)
-├── src/ ## 
+├── src/ ## Direktori utama untuk semua source code
 │   └── com/
 │       └── neuralnetworks/
-│           ├── activations/ 
+│           ├── activations/  ## Implementasi berbagai fungsi aktivasi
 │           │   ├── ActivationFunction.java   (Interface)
 │           │   ├── ReLU.java
 │           │   └── Sigmoid.java
 │           │
-│           ├── data/
+│           ├── data/ ## Utilitas untuk memuat dan memproses data
 │           │   └── DataLoader.java
 │           │
-│           ├── layers/
+│           ├── layers/ ## Block pembangun jaringan (misall: DenseLayer)
 │           │   ├── Layer.java                (Abstract Class)
 │           │   └── DenseLayer.java
 │           │
-│           ├── loss/
+│           ├── loss/ ## Fungsi untuk menghitung error model
 │           │   ├── LossFunction.java         (Interface)
 │           │   └── MeanSquaredError.java
 │           │
-│           ├── math/
+│           ├── math/ ## Logika Matematika inti
 │           │   └── Matrix.java
 │           │
-│           ├── networks/
+│           ├── networks/ ## Kelas Utama yang membangun jaringan NeuralNetworks
 │           │   └── NeuralNetwork.java
 │           │
-│           ├── optimizers/
+│           ├── optimizers/ ## Algoritma untuk memperbarui oObot (function optimizer)
 │           │   ├── Optimizer.java            (Interface)
 │           │   └── SGD.java
 │           │
-│           └── App.java                      (Main Entry Point)
+│           └── App.java ## Titik masuk utama aplikasi (Main)
 │
 ├── test/
 │   └── (file-file tes untuk setiap komponen)
@@ -90,6 +90,55 @@ Project ini terbuka bagi siapapun, kami siap menampung semua kontribusi kalian, 
 
 Berikut langkah-langkah utnuk memulai berkontribusi:
 
+1.  **Fork Repositori**
+    Klik tombol "Fork" di sudut kanan atas halaman ini untuk membuat salinan repositori ini di akun GitHub Anda.
+
+2.  **Buat Branch Baru**
+    Buat branch baru dari branch `main` untuk mengerjakan perubahan Anda. Gunakan nama branch yang deskriptif.
+    ```sh
+    # Contoh nama branch
+    git checkout -b feature/add-tanh-activation
+    # atau
+    git checkout -b fix/tensor-transpose-bug
+    ```
+
+3.  **Lakukan Perubahan Anda**
+    Tulis kode Anda. Pastikan untuk mengikuti gaya penulisan kode yang sudah ada. Jika Anda menambahkan fitur baru, jangan lupa untuk menambahkan *unit test* yang relevan di dalam direktori `test/`.
+
+4.  **Commit Perubahan Anda**
+    Tulis pesan commit yang jelas dan ringkas (ikuti penulisan https://gist.github.com/rishavpandey43/84665ffe3cea76400d8e5a1ad7133a79).
+    ```sh
+    git commit -m ":start: feat: Menambahkan fungsi aktivasi Tanh"
+    # atau
+    git commit -m ":bug: fix: Memperbaiki bug pada metode transpose Tensor"
+    ```
+
+5.  **Push ke Branch Anda**
+    Unggah perubahan Anda ke repositori fork Anda.
+    ```sh
+    git push origin feature/add-tanh-activation
+    ```
+
+6.  **Buka Pull Request (PR)**
+    Buka halaman repositori asli dan klik tombol "New pull request". Pilih branch Anda sebagai sumber dan branch `main` dari repositori asli sebagai tujuan. Berikan judul dan deskripsi yang jelas tentang apa yang dilakukan oleh PR Anda.
+
+Tim kami akan meninjau PR Anda sesegera mungkin. Terima kasih telah berkontribusi!
+
+
+## 🗺️ Roadmap / Rencana Pengembangan
+
+Berikut adalah beberapa fitur dan tugas yang kami rencanakan untuk ditambahkan. Ini adalah tempat yang bagus untuk mencari ide jika Anda ingin berkontribusi!
+
+- [ ] **Matematika**: Implementasi `transpose`, `mean`, `max`, `sum`, DLL.
+- [ ] **Fungsi Aktivasi**: Menambahkan `Tanh`, `Softmax`, `LeakyReLU`, DLL.
+- [ ] **Fungsi Loss**: Menambahkan `CrossEntropyLoss`, DLL.
+- [ ] **Optimizer**: Menambahkan `Adam`, DLL.
+- [ ] **Layer**: Implementasi `ConvolutionalLayer`, `PoolingLayer` DLL.
+
+
+## 📜 Lisensi
+
+Proyek ini dilisensikan di bawah Lisensi MIT. Lihat file `LICENSE` untuk detail lebih lanjut.
 
 
 
