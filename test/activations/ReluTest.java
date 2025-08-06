@@ -1,10 +1,13 @@
-package com.neuralnetworks;
+// package com.neuralnetworks.activations;
+
+import com.neuralnetworks.activations.ActivationFunction;
+import com.neuralnetworks.activations.ActivationType;
+import com.neuralnetworks.math.Tensor;
 
 import com.neuralnetworks.math.Tensor;
 
-import com.neuralnetworks.activations.ActivationType;
+public class ReluTest {
 
-public class App {
   public static void main(String[] args) {
     System.out.println("Memulai pengujian untuk fungsi aktivasi...");
     int testsPassed = 0;
