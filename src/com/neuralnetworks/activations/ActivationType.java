@@ -15,7 +15,9 @@ public enum ActivationType implements ActivationFunction {
 
     @Override
     public Tensor<Double> backward(Tensor<Double> outputGradient) {
+      System.out.println("TEstt");
       if (lastInput == null) {
+        System.out.println("Masuk IF");
         throw new IllegalStateException("Metode forward harus dipanggil sebelum backward.");
       }
       Tensor<Double> localDerivative = Relu.derivative(this.lastInput);
