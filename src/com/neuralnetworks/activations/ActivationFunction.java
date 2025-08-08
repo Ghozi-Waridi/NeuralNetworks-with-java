@@ -22,6 +22,6 @@ public interface ActivationFunction {
    * @return Tensor output yang berisi gradien dari fungsi aktivasi.
    * @param <T> Tipe data numerik yang digunakan dalam tensor.
    */
-  Tensor<Double> backward(Tensor<Double> input);
+  Tensor<Double> backward(Tensor<Double> outputGradient);
 
 }
