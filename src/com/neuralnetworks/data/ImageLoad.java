@@ -8,6 +8,8 @@ import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
 
+import com.neuralnetworks.math.Tensor;
+
 public class ImageLoad {
   private String path;
   private List<BufferedImage> images;
@@ -68,7 +70,7 @@ public class ImageLoad {
             if (image != null) {
               // Menambahkan gambar dan label ke dalam list
               images.add(image);
-              labels.add(file.getName());
+              labels.add(folder.getName());
               System.out.println("Gambar dimuat: " + file.getName());
             } else {
               System.out.println("Gagal memuat gambar: " + file.getName());
@@ -98,6 +100,29 @@ public class ImageLoad {
   }
   public List<BufferedImage> getImages() {
     return images;
+  }
+  public List<String> getLabels() {
+    return labels;
+  }
+  public void setGray(){
+    for (int i = 0; i < images.size(); i++) {
+      BufferedImage img = images.get(i);
+
+      BufferedImage grayImage = new BufferedImage(img.getWidth(), img.getHeight(), BufferedImage.TYPE_BYTE_GRAY);
+    for(int j = 0; j < img.getWidth(); j++) {
+      for (int k = 0; k < img.getHeight(); k++) {
+        int rgb = img.getRGB(j, k);
+        int r = (rgb >> 16) & 0xFF;
+        int g = (rgb >> 8) & 0xFF;
+        int b = rgb & 0xFF;
+        // Menghitung nilai grayscale
+        int gray = (r + g + b) / 3;
+        // Set pixel pada gambar grayscale
+        grayImage.setRGB(j, k, (gray << 16) | (gray << 8) | gray);
+      }
+    } 
+      
+    }
   }
 
 }

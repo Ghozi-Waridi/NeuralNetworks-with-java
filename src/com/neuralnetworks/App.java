@@ -15,6 +15,9 @@ public class App {
 
    List<BufferedImage> images = imageLoad.getImages();
    System.out.println("Jumlah gambar yang dimuat: " + images.size());
+   
+   List<String> labels = imageLoad.getLabels();
+   System.out.println("Jumlah label yang dimuat: " + labels.toString());
   }
 }
 
