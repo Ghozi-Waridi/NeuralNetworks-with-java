@@ -33,11 +33,13 @@ public class ImageFolderDataset implements Dataset<Map.Entry<BufferedImage, Stri
   private void loadDataset(File folder) {
     // Mengambil daftar File Dari sebuah folder.
     File[] files = folder.listFiles();
+
+    // Validasi apakah folder dapat diakses
     if (files == null) {
       System.out.println("Tidak dapat mengakses folder: " + folder.getAbsolutePath());
       return;
     }
-
+    // perulangan untuk rekursif untuk memuat gambar subfolder.
     for (File file : files) {
       if (file.isDirectory()) {
         loadDataset(file);
@@ -72,9 +74,12 @@ public class ImageFolderDataset implements Dataset<Map.Entry<BufferedImage, Stri
    */
   @Override
   public Map.Entry<BufferedImage, String> get(int index) {
+    // Validasi index yang diberikan
     if (index < 0 || index >= size()) {
       throw new IndexOutOfBoundsException("Index " + index + " di luar jangkauan dataset " + size());
     }
+
+    // Mengambil gambar dan label berdasarkan index yang diberikan
     File imageFile = this.images.get(index);
     String label = this.labels.get(index);
 
