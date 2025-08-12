@@ -6,9 +6,10 @@ import java.io.File;
 
 public class DataLoader {
   private Dataset<?> datasets;
-  private List<Transform<?, ?>> pipelines;
+  private List<Transform> pipelines;
+  private int currentIndex = 0;
 
-  public DataLoader(Dataset<?> datasets, List<Transform<?, ?>> pipelines) {
+  public DataLoader(Dataset<?> datasets, List<Transform> pipelines) {
     this.datasets = datasets;
     this.pipelines = pipelines;
   }
@@ -29,7 +30,7 @@ public class DataLoader {
 
     Object data = datasets.get(index);
 
-    for (Transform transform : pipelines) {
+    for (Transform transform : this.pipelines) {
       data = transform.apply(data);
     }
     return data;
