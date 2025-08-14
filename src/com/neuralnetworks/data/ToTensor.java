@@ -40,7 +40,8 @@ public class ToTensor
     // Membuat array untuk menyimpan anga numerik dari gambar
     double[] imageData = new double[width * height * channel];
     int arrIndex = 0;
-
+    
+    if (channel == 3) {
     for (int y = 0; y < height; y++) {
       for (int x = 0; x < width; x++) {
 
@@ -58,6 +59,24 @@ public class ToTensor
 
       }
     }
+    } else if (channel == 1) {
+      for (int y = 0; y < height; y++) {
+        for (int x = 0; x < width; x++) {
+
+
+          int pixel = input.getKey().getRGB(x, y);
+          double gray = ((pixel >> 16) & 0xFF) / 255.0;
+
+          imageData[arrIndex++] = gray;
+        }
+      }
+    } else {
+      throw new IllegalArgumentException("Jumlah channel harus 1 atau 3.");
+    }
+
+
+
+
 
     // Membuat Tensor dari array gambar
     Tensor<Double> imageTensor = Tensor.fromArray(imageData, width, height, channel);
