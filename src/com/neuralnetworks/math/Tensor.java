@@ -229,9 +229,28 @@ public class Tensor<T extends Number> {
       throw new IllegalArgumentException("Jumlah indeks harus sesuai dengan jumlah dimensi tensor.");
     }
     // Hitung indeks linear berdasarkan indeks multi-dimensi
-    int linearIndex = index[0] * shape[1] + index[1];
+    int linearIndex = linearIndex(index);
     return internalData.get(linearIndex);
+  }
 
+  /**
+   * Menghitung indeks linear berdasarkan indeks multi-dimensi.
+   * 
+   * @param index Indeks multi-dimensi untuk menghitung indeks linear.
+   * @return Indeks linear yang sesuai dengan indeks multi-dimensi.
+   */
+  public int linearIndex(int... index) {
+    int linearIndexVar = 0;
+    int stride = 1;
+
+    for (int i = shape.length - 1; i >= 0; i--) {
+      if (index[i] < 0 || index[i] >= shape[i]) {
+        throw new IndexOutOfBoundsException("Indeks di luar batas untuk dimensi " + i + ": " + index[i]);
+      }
+      linearIndexVar += index[i] * stride;
+      stride *= shape[i];
+    }
+    return linearIndexVar;
   }
 
   /**
