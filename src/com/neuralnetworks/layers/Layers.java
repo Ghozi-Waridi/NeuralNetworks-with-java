@@ -8,6 +8,7 @@ import com.neuralnetworks.math.Tensor;
 public abstract class Layers {
 
   protected Tensor input;
+
   protected Tensor output;
 
   public abstract Tensor forward(Tensor input);
