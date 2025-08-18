@@ -29,6 +29,7 @@ public class DataLoader {
     }
 
     Object data = datasets.get(index);
+    System.out.println("Ukuran : " + datasets.sizeLabels());
 
     for (Transform transform : this.pipelines) {
       data = transform.apply(data);
