@@ -6,5 +6,6 @@ package com.neuralnetworks.data;
 public interface Dataset <T>{
 T get(int index);
 int size();
+int sizeLabels();
   
 }

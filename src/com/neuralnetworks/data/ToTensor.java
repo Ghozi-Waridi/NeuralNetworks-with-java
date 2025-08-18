@@ -74,10 +74,6 @@ public class ToTensor
       throw new IllegalArgumentException("Jumlah channel harus 1 atau 3.");
     }
 
-
-
-
-
     // Membuat Tensor dari array gambar
     Tensor<Double> imageTensor = Tensor.fromArray(imageData, width, height, channel);
 
@@ -94,7 +90,11 @@ public class ToTensor
     labels[labelIndex] = 1.0;
 
     Tensor<Double> labelTensor = Tensor.fromArray(labels, panjangLabel);
+    labelTensor.getShape();
+    System.out.println("Label Tensor index : " + labelTensor.getShapeArray().length);
+    System.out.println("Label Tensor : " + labelTensor.get(0));
 
+    System.out.println("Label Tensor : " + labelTensor.get(1));
     return Map.entry(imageTensor, labelTensor);
   }
 }

@@ -81,7 +81,9 @@ public class ImageFolderDataset implements Dataset<Map.Entry<BufferedImage, Stri
 
     // Mengambil gambar dan label berdasarkan index yang diberikan
     File imageFile = this.images.get(index);
+    
     String label = this.labels.get(index);
+    System.out.println("INI adalah label : " + label );
 
     try {
       BufferedImage image = ImageIO.read(imageFile);
@@ -104,5 +106,13 @@ public class ImageFolderDataset implements Dataset<Map.Entry<BufferedImage, Stri
   @Override
   public int size() {
     return this.images.size();
+  }
+  @Override
+  public int sizeLabels(){
+    return labels.size();
+  }
+
+  public List<String> getLabels(){
+    return this.labels;
   }
 }
