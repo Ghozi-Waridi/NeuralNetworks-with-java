@@ -13,5 +13,5 @@ public abstract class Layers {
 
   public abstract Tensor forward(Tensor input);
 
-  public abstract Tensor backward(Tensor outputGradient);
+  public abstract Tensor backward(Tensor outputGradient, Tensor activation);
 } 
